@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26823.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisionWall.Api", "VisionWall.Api\VisionWall.Api.csproj", "{2EE2BCB6-5301-4935-9CF3-C3AFB20D2EFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisionWall.Api", "VisionWall.Api\VisionWall.Api.csproj", "{2EE2BCB6-5301-4935-9CF3-C3AFB20D2EFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisionWall.Models", "VisionWall.Models\VisionWall.Models.csproj", "{7BD6F5C4-C682-4253-A1B5-7AD03C1225D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{2EE2BCB6-5301-4935-9CF3-C3AFB20D2EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EE2BCB6-5301-4935-9CF3-C3AFB20D2EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EE2BCB6-5301-4935-9CF3-C3AFB20D2EFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BD6F5C4-C682-4253-A1B5-7AD03C1225D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BD6F5C4-C682-4253-A1B5-7AD03C1225D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BD6F5C4-C682-4253-A1B5-7AD03C1225D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BD6F5C4-C682-4253-A1B5-7AD03C1225D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
