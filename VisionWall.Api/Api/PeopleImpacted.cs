@@ -7,6 +7,7 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.WindowsAzure.Storage.Table;
 using VisionWall.Models.TableEntities;
+using VisionWall.Api.Utilities;
 
 namespace VisionWall.Api.Api
 {
@@ -25,7 +26,11 @@ namespace VisionWall.Api.Api
 
             var valueCreated = metricsTable.ExecuteQuery(query).First();
 
-            return req.CreateResponse(HttpStatusCode.OK, valueCreated.Value, "application/json");
+            var response = req.CreateResponse(HttpStatusCode.OK, valueCreated.Value, "application/json");
+
+            response.AddCorsHeaders(req.Headers);
+
+            return response;
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.Azure.WebJobs.Host;
 using Microsoft.WindowsAzure.Storage.Table;
 using VisionWall.Models.TableEntities;
 using System.Threading.Tasks;
+using VisionWall.Api.Utilities;
 
 namespace VisionWall.Api.Api
 {
@@ -19,13 +20,17 @@ namespace VisionWall.Api.Api
             TraceWriter log)
         {
             log.Info("Value function processed a request.");
-
+            
             var query = new TableQuery<MetricEntity>()
                 .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "valuecreated"));
 
             var valueCreated = metricsTable.ExecuteQuery(query).First();
 
-            return req.CreateResponse(HttpStatusCode.OK, valueCreated.Value, "application/json");
+            var response = req.CreateResponse(HttpStatusCode.OK, valueCreated.Value, "application/json");
+
+            response.AddCorsHeaders(req.Headers);
+
+            return response;
         }
     }
 }
