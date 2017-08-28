@@ -61,7 +61,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dtos\Client.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TableEntities\ClientDetailEntity.cs" />
+    <Compile Include="TableEntities\ClientTagImageEntity.cs" />
     <Compile Include="TableEntities\MetricEntity.cs" />
   </ItemGroup>
   <ItemGroup>
