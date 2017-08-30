@@ -21,6 +21,13 @@ namespace VisionWall.Api.Api
         {
             log.Info("Impact function processed a request.");
 
+            var tokenHelper = new TokenHelper();
+            if (!tokenHelper.AuthorizeUser(req.Headers.Authorization))
+            {
+                log.Info("user not authorzied");
+                return req.CreateResponse(HttpStatusCode.Forbidden);
+            }
+
             var query = new TableQuery<MetricEntity>()
                 .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "peopleimpacted"));
 

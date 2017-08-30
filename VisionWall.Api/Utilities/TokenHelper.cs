@@ -1,5 +1,7 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net.Http.Headers;
 
 namespace VisionWall.Api.Utilities
 {
@@ -10,6 +12,7 @@ namespace VisionWall.Api.Utilities
             try
             {
                 var handler = new JwtSecurityTokenHandler();
+                
                 return handler.ReadJwtToken(rawToken);
             }
             catch
@@ -30,6 +33,16 @@ namespace VisionWall.Api.Utilities
             var emailClaim = token.Claims.FirstOrDefault(c => c.Type == "email");
 
             return emailClaim?.Value.Contains("singlestoneconsulting.com") ?? false;
+        }
+
+        public bool AuthorizeUser(AuthenticationHeaderValue authHeader)
+        {
+            if (authHeader == null)
+            {
+                return false;
+            }
+
+            return ValidateToken(authHeader.Parameter);
         }
     }
 }

@@ -30,8 +30,7 @@ namespace VisionWall.Api.Api
             log.Info("token " + req.Headers.Authorization?.Parameter);
 
             var tokenHelper = new TokenHelper();
-            var token = req.Headers.Authorization?.Parameter;
-            if (!tokenHelper.ValidateToken(token))
+            if (!tokenHelper.AuthorizeUser(req.Headers.Authorization))
             {
                 log.Info("user not authorzied");
                 return req.CreateResponse(HttpStatusCode.Forbidden);
