@@ -27,6 +27,16 @@ namespace VisionWall.Api.Api
         {
             log.Info("Clients function processed a request.");
 
+            log.Info("token " + req.Headers.Authorization?.Parameter);
+
+            var tokenHelper = new TokenHelper();
+            var token = req.Headers.Authorization?.Parameter;
+            if (!tokenHelper.ValidateToken(token))
+            {
+                log.Info("user not authorzied");
+                return req.CreateResponse(HttpStatusCode.Forbidden);
+            }
+            
             var clients = new List<Client>();
 
             var detailQuery = new TableQuery<ClientDetailEntity>()
