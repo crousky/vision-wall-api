@@ -22,7 +22,6 @@ namespace VisionWall.Api.Api
         public static async Task<HttpResponseMessage> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req,
             [Table("clients", Connection = "AzureWebJobsStorage")]CloudTable clientsTable,
-            [Table("clientimages", Connection = "AzureWebJobsStorage")]CloudTable clientImagesTable,
             TraceWriter log)
         {
             log.Info("Clients function processed a request.");
@@ -45,20 +44,15 @@ namespace VisionWall.Api.Api
                 .Where(TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, "tagimage"));
 
             var detailEntities = clientsTable.ExecuteQuery(detailQuery);
-
-            var imageEntities = clientImagesTable.ExecuteQuery(imageQuery);
-
+            
             foreach(var detail in detailEntities.OrderBy(de => de.Year).ThenBy(de => de.Month))
             {
-                var image = imageEntities.FirstOrDefault(i => i.PartitionKey == detail.PartitionKey);
-
                 clients.Add(new Client(
                     Guid.Parse(detail.PartitionKey),
                     detail.Name,
                     detail.Month,
                     detail.Year,
-                    detail.Url,
-                    image?.TagImage));
+                    detail.Url));
             }
 
             var response = req.CreateResponse(HttpStatusCode.OK, clients, new JsonMediaTypeFormatter
@@ -69,8 +63,6 @@ namespace VisionWall.Api.Api
                 },
                 UseDataContractJsonSerializer = false
             });
-
-            response.AddCorsHeaders(req.Headers);
 
             return response;
         }

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "VisionWall.Api": {
+      "commandName": "Project",
+      "commandLineArgs": "host start --cors *"
+    }
+  }
+}

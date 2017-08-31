@@ -33,11 +33,7 @@ namespace VisionWall.Api.Api
 
             var valueCreated = metricsTable.ExecuteQuery(query).First();
 
-            var response = req.CreateResponse(HttpStatusCode.OK, valueCreated.Value, "application/json");
-
-            response.AddCorsHeaders(req.Headers);
-
-            return response;
+            return req.CreateResponse(HttpStatusCode.OK, valueCreated.Value, "application/json");
         }
     }
 }

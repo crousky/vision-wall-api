@@ -1,4 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http.Headers;
@@ -37,6 +38,10 @@ namespace VisionWall.Api.Utilities
 
         public bool AuthorizeUser(AuthenticationHeaderValue authHeader)
         {
+            if (ConfigurationManager.AppSettings["DisableAuth"] == "true")
+            {
+                return true;
+            }
             if (authHeader == null)
             {
                 return false;

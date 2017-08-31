@@ -9,22 +9,19 @@ namespace VisionWall.Models.Dtos
         public int Month { get; }
         public int Year { get; }
         public string Url { get; }
-        public string TagImage { get; }
 
         public Client(
             Guid id,
             string name,
             int month,
             int year,
-            string url,
-            string tagImage)
+            string url)
         {
             Id = id;
             Name = name;
             Month = month;
             Year = year;
             Url = url;
-            TagImage = tagImage;
         }
     }
 }
