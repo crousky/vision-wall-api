@@ -45,7 +45,7 @@ namespace VisionWall.Api.Api
 
             var detailEntities = clientsTable.ExecuteQuery(detailQuery);
             
-            foreach(var detail in detailEntities.OrderBy(de => de.Year).ThenBy(de => de.Month))
+            foreach(var detail in detailEntities.OrderBy(de => de.Year).ThenBy(de => de.Month).ThenBy(de => de.Day))
             {
                 clients.Add(new Client(
                     Guid.Parse(detail.PartitionKey),
