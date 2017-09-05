@@ -20,7 +20,7 @@ namespace VisionWall.Api.Api
     {
         [FunctionName("Clients")]
         public static async Task<HttpResponseMessage> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "clients")]HttpRequestMessage req,
             [Table("clients", Connection = "AzureWebJobsStorage")]CloudTable clientsTable,
             TraceWriter log)
         {
