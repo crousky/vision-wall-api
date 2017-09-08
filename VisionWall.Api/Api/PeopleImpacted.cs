@@ -16,7 +16,7 @@ namespace VisionWall.Api.Api
         [FunctionName("PeopleImpacted")]
         public static async Task<HttpResponseMessage> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "impact")]HttpRequestMessage req,
-            [Table("metrics", Connection = "AzureWebJobsStorage")]CloudTable metricsTable,
+            [Table("peopleimpacted", Connection = "AzureWebJobsStorage")]CloudTable peopleImpactedTable,
             TraceWriter log)
         {
             log.Info("Impact function processed a request.");
@@ -28,12 +28,11 @@ namespace VisionWall.Api.Api
                 return req.CreateResponse(HttpStatusCode.Forbidden);
             }
 
-            var query = new TableQuery<MetricEntity>()
-                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "peopleimpacted"));
+            var query = new TableQuery<PeopleImpactedEntity>();
 
-            var valueCreated = metricsTable.ExecuteQuery(query).First();
+            var peopleImpacted = peopleImpactedTable.ExecuteQuery(query).Sum(p => p.Value);
 
-            return req.CreateResponse(HttpStatusCode.OK, valueCreated.Value, "application/json");
+            return req.CreateResponse(HttpStatusCode.OK, peopleImpacted, "application/json");
         }
     }
 }

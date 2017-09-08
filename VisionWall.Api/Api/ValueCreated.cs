@@ -15,8 +15,8 @@ namespace VisionWall.Api.Api
     {
         [FunctionName("ValueCreated")]
         public static async Task<HttpResponseMessage> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "value")]HttpRequestMessage req, 
-            [Table("metrics", Connection = "AzureWebJobsStorage")]CloudTable metricsTable,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "value")]HttpRequestMessage req,
+            [Table("valuecreated", Connection = "AzureWebJobsStorage")]CloudTable valueCreatedTable,
             TraceWriter log)
         {
             log.Info("Value function processed a request.");
@@ -28,12 +28,11 @@ namespace VisionWall.Api.Api
                 return req.CreateResponse(HttpStatusCode.Forbidden);
             }
 
-            var query = new TableQuery<MetricEntity>()
-                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "valuecreated"));
+            var query = new TableQuery<ValueCreatedEntity>();
 
-            var valueCreated = metricsTable.ExecuteQuery(query).First();
+            var valueCreated = valueCreatedTable.ExecuteQuery(query).Sum(v => v.Value);
 
-            return req.CreateResponse(HttpStatusCode.OK, valueCreated.Value, "application/json");
+            return req.CreateResponse(HttpStatusCode.OK, valueCreated, "application/json");
         }
     }
 }
