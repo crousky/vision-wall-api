@@ -112,6 +112,7 @@ namespace VisionWall.Api.Api
                 detail.CompletionDate,
                 detail.SolutionName,
                 detail.Description,
+                detail.PointOfContact,
                 peopleImpactedEntities.Sum(pi => pi.Value),
                 externalPeopleMetric,
                 internalPeopleMetric,

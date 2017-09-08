@@ -10,6 +10,7 @@ namespace VisionWall.Models.Dtos
         public DateTime CompletionDate { get; }
         public string SolutionName { get; }
         public string Description { get; }
+        public string PointOfContact { get; }
         public int PeopleImpacted { get; }
         public Metric ExternalPeopleImpacted { get; }
         public Metric InternalPeopleImpacted { get; }
@@ -24,6 +25,7 @@ namespace VisionWall.Models.Dtos
             DateTime completionDate,
             string solutionName,
             string description,
+            string pointOfContact,
             int peopleImpacted,
             Metric externalPeopleImpacted,
             Metric internalPeopleImpacted,
@@ -37,6 +39,7 @@ namespace VisionWall.Models.Dtos
             CompletionDate = completionDate;
             SolutionName = solutionName;
             Description = description;
+            PointOfContact = pointOfContact;
             PeopleImpacted = peopleImpacted;
             ExternalPeopleImpacted = externalPeopleImpacted;
             InternalPeopleImpacted = internalPeopleImpacted;
