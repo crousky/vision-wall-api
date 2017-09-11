@@ -1,5 +1,4 @@
 using System.Configuration;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -8,7 +7,6 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
 using Thinktecture.IdentityModel.Client;
 using System;
-using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using VisionWall.Api.Utilities;
 
@@ -76,7 +74,7 @@ namespace VisionWall.Api.Api
                 if (valid)
                 {
                     var response = req.CreateResponse(HttpStatusCode.Redirect);
-                    response.Headers.Location = new Uri("https://vizwalldev.azurewebsites.net/?token="  + token);
+                    response.Headers.Location = new Uri(ConfigurationManager.AppSettings["TokenRedirect"] + token);
                     return response;
                     //return req.CreateResponse(HttpStatusCode.OK, unvalidatedJwt, "application/json");
                 } else
