@@ -89,10 +89,10 @@ namespace VisionWall.Api.Api
             var peopleImpactedEntities = peopleImpactedTable.ExecuteQuery(peopleImpactedQuery);
 
             var externalPeople = peopleImpactedEntities.FirstOrDefault(pi => pi.RowKey == "external");
-            var externalPeopleMetric = new Metric(externalPeople.Value, externalPeople.Description);
+            var externalPeopleMetric = new Metric(externalPeople?.Value ?? 0, externalPeople?.Description ?? "");
 
             var internalPeople = peopleImpactedEntities.FirstOrDefault(pi => pi.RowKey == "internal");
-            var internalPeopleMetric = new Metric(internalPeople.Value, internalPeople.Description);
+            var internalPeopleMetric = new Metric(internalPeople?.Value ?? 0, internalPeople?.Description ?? "");
 
             var valueCreatedQuery = new TableQuery<ValueCreatedEntity>()
                 .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, detail.PartitionKey));
@@ -100,10 +100,10 @@ namespace VisionWall.Api.Api
             var valueCreatedEntities = valueCreatedTable.ExecuteQuery(valueCreatedQuery);
 
             var costReduction = valueCreatedEntities.FirstOrDefault(vc => vc.RowKey == "costreduction");
-            var costReductionMetric = new Metric(costReduction.Value, costReduction.Description);
+            var costReductionMetric = new Metric(costReduction?.Value ?? 0, costReduction?.Description ?? "");
 
             var incrementalRevenue = valueCreatedEntities.FirstOrDefault(vc => vc.RowKey == "incrementalrevenue");
-            var incrementalRevenueMetric = new Metric(incrementalRevenue.Value, incrementalRevenue.Description);
+            var incrementalRevenueMetric = new Metric(incrementalRevenue?.Value ?? 0, incrementalRevenue?.Description ?? "");
 
             return new Project(
                 Guid.Parse(detail.PartitionKey),
